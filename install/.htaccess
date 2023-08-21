@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Geschützter Bereich"
+AuthUserFile /var/www/html/__GEHTDIRNIX/eb-bot/install/.htpasswd
+Require valid-user
