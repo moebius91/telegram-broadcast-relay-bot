@@ -18,6 +18,12 @@ $update = json_decode($input, true);
 // Debugging: Eingehende Anfragen speichern, falls Debug-Modus aktiviert ist
 speichereAnfrage($input);
 
+// Debug-Modus über einen Befehl ein- oder ausschalten
+$debugModusGeaendert = handleDebugModus($update, $token);
+if ($debugModusGeaendert !== null) {
+    $debugMode = $debugModusGeaendert; // Aktualisieren des Debug-Modus-Zustands
+}
+
 // Nachrichten aus dem Kanal in die Gruppen weiterleiten
 weiterleitenNachricht($update, $token, $channel_id, $group_ids);
 

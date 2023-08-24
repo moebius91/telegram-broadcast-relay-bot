@@ -1,2 +1,3 @@
 /install/config.php
 webhook_data_*.json
+debug_mode.txt

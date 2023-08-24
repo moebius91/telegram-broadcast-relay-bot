@@ -88,3 +88,24 @@ function antworteNachricht($chat_id, $text, $token, $parse_mode = '') {
     curl_close($ch);
 }
 
+function handleDebugModus($update, $token) {
+    if (isset($update["message"])) {
+        $chat_type = $update["message"]["chat"]["type"];
+        $chat_id = $update["message"]["chat"]["id"];
+        $message_text = $update["message"]["text"];
+        $user_id = $update["message"]["from"]["id"];
+
+        if (($chat_type == "group" || $chat_type == "supergroup") && istBenutzerAdmin($user_id, $chat_id, $token)) {
+            if ($message_text == "/debugmodusan") {
+                file_put_contents('debug_mode.txt', 'true');
+                antworteNachricht($chat_id, "Debug-Modus ist jetzt AN", $token);
+                return true;
+            } elseif ($message_text == "/debugmodusaus") {
+                file_put_contents('debug_mode.txt', 'false');
+                antworteNachricht($chat_id, "Debug-Modus ist jetzt AUS", $token);
+                return false;
+            }
+        }
+    }
+    return null; // Keine Änderung des Debug-Modus
+}
